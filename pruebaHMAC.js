@@ -18,9 +18,29 @@ function sign(originalMessage, key){
 }
 var message = ""
 var message_hex = toHex(message);
-var key = "1"
+var key = "135"
 
-console.log(sign(message, key))
+//console.log(sign(message, key))
 hmac = new sjcl.misc.hmac(sjcl.codec.hex.toBits(key), sjcl.hash.sha256);
-console.log(sjcl.codec.hex.toBits(message_hex))
-console.log(sjcl.codec.hex.fromBits(hmac.encrypt(sjcl.codec.hex.toBits(message_hex))))
+//console.log(hmac)
+//console.log(sjcl.codec.hex.toBits(key))
+
+function toBits(str) {
+    var i, out=[], len;
+    //encuentra los espacios y los quita
+    str = str.replace(/\s|0x/g, "");
+    console.log(str)
+    len = str.length;
+    console.log(len)
+    str = str + "00000000";
+    console.log(str)
+    for (i=0; i<str.length; i+=8) {
+      out.push(parseInt(str.substr(i,8),16)^0);
+      console.log(parseInt(str.substr(i,8),16)^0)
+      console.log("13500000000".substr)
+    }
+    return sjcl.bitArray.clamp(out, len*4);
+  }
+
+  console.log(toBits(key))
+
